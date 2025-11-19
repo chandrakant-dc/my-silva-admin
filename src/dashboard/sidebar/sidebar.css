@@ -82,7 +82,7 @@
     }
 
     &:hover {
-        padding: 8px 11px;
+        padding: 8px 6px;
         background-color: var(--primary-color);
 
         svg {
@@ -98,7 +98,7 @@
     }
 }
 
-.sidebar__link__hover.first-child {
+/* .sidebar__link__hover.first-child {
     &:hover {
         svg {
             path {
@@ -106,15 +106,15 @@
             }
         }
     }
-}
+} */
 
-.sidebar__link__hover.first-child.active {
+/* .sidebar__link__hover.first-child.active {
     svg {
         path {
             stroke: white;
         }
     }
-}
+} */
 
 .sidebar__link__hover.logout {
     &:hover {
@@ -130,7 +130,7 @@
 .sidebar__link__hover.Scholarship,
 .sidebar__link__hover.invite-friend {
     &:hover {
-        padding: 8px 11px;
+        padding: 8px 6px;
         background-color: var(--primary-color);
 
         svg {
@@ -147,7 +147,7 @@
 }
 
 .sidebar__link__hover.active {
-    padding: 8px 11px;
+    padding: 8px 6px;
     background-color: var(--primary-color);
 
     svg {

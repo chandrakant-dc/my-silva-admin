@@ -16,10 +16,10 @@ export default function SideBar({ toggleMenu, handleClose }: { toggleMenu: boole
 
     return (
         <>
-            <div className={`w-[240px] bg-white h-screen layout-sidebar p-8 pt-2 flex flex-col justify-between ${toggleMenu ? "open" : "close"}`}>
-                <div className="w-[146px] mx-auto flex flex-col gap-y-[48px] content__wrapper">
+            <div className={`w-60 bg-white h-screen layout-sidebar p-8 pt-2 flex flex-col justify-between ${toggleMenu ? "open" : "close"}`}>
+                <div className="w-[146px] mx-auto flex flex-col gap-y-12 content__wrapper">
                     <div className="flex justify-between items-center logo__header">
-                        <img src="/brand-logo.svg" alt="logo" className="w-[111px] h-[64px]" />
+                        <img src="/brand-logo.svg" alt="logo" className="w-[111px] h-16" />
                         <button onClick={() => handleClose(false)} className="close--btn"><CloseMenuIcon /></button>
                     </div>
                     <div className="flex flex-col gap-y-2.5">
@@ -50,7 +50,7 @@ export default function SideBar({ toggleMenu, handleClose }: { toggleMenu: boole
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-col gap-y-[1px]">
+                <div className="flex flex-col gap-y-px">
                     <button onClick={handleLogout} className="h-10 flex items-center gap-x-3 md:rounded-lg rounded-none menu__logout__btn sidebar__link__hover logout">
                         <LogoutIcon />
                         <div className="text-(--primary-color) text-[14px] font-medium">Logout</div>
