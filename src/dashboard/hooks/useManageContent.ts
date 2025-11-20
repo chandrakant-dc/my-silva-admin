@@ -1,3 +1,4 @@
+import { questionAnswerSchema } from "@/schema/manage.schema";
 import type { AddQuestionIniValI, TopicInitVal } from "@/types/manage-content.type"
 import { useDisclosure } from "@heroui/react";
 import { useFormik } from "formik"
@@ -40,6 +41,7 @@ export default function useManageContent() {
 
     const QueFormik = useFormik({
         initialValues: initialValuesQue,
+        validationSchema: questionAnswerSchema,
         onSubmit: handleAddQuestion
     })
 

@@ -35,14 +35,16 @@ export default function AddQuestionModal() {
                                         placeholder="Enter Question"
                                         type="text"
                                         classNames={{
-                                            inputWrapper: "input-field",
-                                            label: "label-text",
+                                            inputWrapper: "input-field data-[invalid=true]:!bg-white group-data-[focus=true]:!bg-white !bg-white data-[hover=true]:!bg-white",
+                                            label: "label-text !text-(var(--primary-color))",
                                             base: "mb-10"
                                         }}
                                         id="question"
-                                        name="question"
-                                        value={formik.values.question}
-                                        onChange={formik.handleChange}
+                                        // name="question"
+                                        // value={formik.values.question}
+                                        {...formik.getFieldProps("question")}
+                                        isInvalid={!!formik.errors.question && formik.touched.question}
+                                        errorMessage={formik.touched.question && formik.errors.question}
                                     />
                                     <Input
                                         label="Option A"
@@ -50,14 +52,17 @@ export default function AddQuestionModal() {
                                         placeholder="Enter Option A"
                                         type="text"
                                         classNames={{
-                                            inputWrapper: "input-field",
-                                            label: "label-text",
+                                            inputWrapper: "input-field data-[invalid=true]:!bg-white group-data-[focus=true]:!bg-white !bg-white data-[hover=true]:!bg-white",
+                                            label: "label-text !text-(var(--primary-color))",
                                             base: "mb-10"
                                         }}
                                         id="option1"
-                                        name="option1"
-                                        value={formik.values.option1}
-                                        onChange={formik.handleChange}
+                                        // name="option1"
+                                        // value={formik.values.option1}
+                                        // onChange={formik.handleChange}
+                                        {...formik.getFieldProps("option1")}
+                                        isInvalid={!!formik.errors.option1 && formik.touched.option1}
+                                        errorMessage={formik.touched.option1 && formik.errors.option1}
                                     />
                                     <Input
                                         label="Option B"
@@ -65,14 +70,17 @@ export default function AddQuestionModal() {
                                         placeholder="Enter Option B"
                                         type="text"
                                         classNames={{
-                                            inputWrapper: "input-field",
-                                            label: "label-text",
+                                            inputWrapper: "input-field data-[invalid=true]:!bg-white group-data-[focus=true]:!bg-white !bg-white data-[hover=true]:!bg-white",
+                                            label: "label-text !text-(var(--primary-color))",
                                             base: "mb-10"
                                         }}
                                         id="option2"
-                                        name="option2"
-                                        value={formik.values.option2}
-                                        onChange={formik.handleChange}
+                                        // name="option2"
+                                        // value={formik.values.option2}
+                                        // onChange={formik.handleChange}
+                                        {...formik.getFieldProps("option2")}
+                                        isInvalid={!!formik.errors.option2 && formik.touched.option2}
+                                        errorMessage={formik.touched.option2 && formik.errors.option2}
                                     />
                                     <Input
                                         label="Option C"
@@ -80,14 +88,17 @@ export default function AddQuestionModal() {
                                         placeholder="Enter Option C"
                                         type="text"
                                         classNames={{
-                                            inputWrapper: "input-field",
-                                            label: "label-text",
+                                            inputWrapper: "input-field data-[invalid=true]:!bg-white group-data-[focus=true]:!bg-white !bg-white data-[hover=true]:!bg-white",
+                                            label: "label-text !text-(var(--primary-color))",
                                             base: "mb-10"
                                         }}
                                         id="option3"
-                                        name="option3"
-                                        value={formik.values.option3}
-                                        onChange={formik.handleChange}
+                                        // name="option3"
+                                        // value={formik.values.option3}
+                                        // onChange={formik.handleChange}
+                                        {...formik.getFieldProps("option3")}
+                                        isInvalid={!!formik.errors.option3 && formik.touched.option3}
+                                        errorMessage={formik.touched.option3 && formik.errors.option3}
                                     />
                                     <Input
                                         label="Option D"
@@ -95,28 +106,34 @@ export default function AddQuestionModal() {
                                         placeholder="Enter Option D"
                                         type="text"
                                         classNames={{
-                                            inputWrapper: "input-field",
-                                            label: "label-text",
+                                            inputWrapper: "input-field data-[invalid=true]:!bg-white group-data-[focus=true]:!bg-white !bg-white data-[hover=true]:!bg-white",
+                                            label: "label-text !text-(var(--primary-color))",
                                             base: "mb-10"
                                         }}
                                         id="option4"
-                                        name="option4"
-                                        value={formik.values.option4}
-                                        onChange={formik.handleChange}
+                                        // name="option4"
+                                        // value={formik.values.option4}
+                                        // onChange={formik.handleChange}
+                                        {...formik.getFieldProps("option4")}
+                                        isInvalid={!!formik.errors.option4 && formik.touched.option4}
+                                        errorMessage={formik.touched.option4 && formik.errors.option4}
                                     />
                                     <Select
                                         label="Correct Answer"
                                         labelPlacement="outside"
                                         aria-label="Correct Answer"
                                         classNames={{
-                                            trigger: "input-field",
-                                            label: "label-text text-[#11181c] !left-0 -translate-y-[calc(100%_+_theme(fontSize.small)/2_+_20px)]"
+                                            trigger: "input-field data-[invalid=true]:!bg-white group-data-[focus=true]:!bg-white !bg-white data-[hover=true]:!bg-white",
+                                            label: "label-text text-[#11181c] !left-0 -translate-y-[calc(100%_+_theme(fontSize.small)/2_+_20px)] !text-(var(--primary-color))"
                                         }}
                                         placeholder="Select answer"
                                         id="answer"
-                                        name="answer"
+                                        // name="answer"
                                         selectedKeys={[formik.values.answer]}
-                                        onChange={formik.handleChange}
+                                        // onChange={formik.handleChange}
+                                        {...formik.getFieldProps("answer")}
+                                        isInvalid={!!formik.errors.answer && formik.touched.answer}
+                                        errorMessage={formik.touched.answer && formik.errors.answer}
                                     >
                                         {options.map((options) => (
                                             <SelectItem key={options.key}>{options.label}</SelectItem>
