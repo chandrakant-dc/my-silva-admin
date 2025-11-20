@@ -14,7 +14,6 @@ export default function ManageContent() {
             <div className="p-4">
                 <div className="flex items-center justify-between h-9">
                     <div className="text-xl font-semibold">Topic</div>
-                    <button onClick={onOpen} className="primary-btn max-w-28 h-full text-sm">Add New</button>
                 </div>
                 <div className="flex items-center gap-x-4">
                     <div className="whitespace-nowrap font-medium">Filter :</div>
@@ -26,6 +25,7 @@ export default function ManageContent() {
                             // input: "input-field !text-black"
                         }}
                         placeholder="Select an category"
+                        aria-label="Select an category"
                     >
                         {[{ key: "1", label: "1" }].map((item) => (
                             <SelectItem key={item.key}>{item.label}</SelectItem>
@@ -39,11 +39,16 @@ export default function ManageContent() {
                             // input: "input-field !text-black"
                         }}
                         placeholder="Select an sub category"
+                        aria-label="Select an sub category"
                     >
                         {[{ key: "1", label: "1" }].map((item) => (
                             <SelectItem key={item.key}>{item.label}</SelectItem>
                         ))}
                     </Select>
+                    <button onClick={onOpen} className="primary-btn max-w-28 h-10 text-sm">Submit</button>
+                </div>
+                <div className="flex items-center justify-end h-9">
+                    <button onClick={onOpen} className="primary-btn max-w-28 h-full text-sm">Add New</button>
                 </div>
                 <div className="overflow-x-auto h-[calc(100vh-145px)] border rounded-lg mt-4">
                     <table className="min-w-full">

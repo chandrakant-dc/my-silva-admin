@@ -1,9 +1,9 @@
 import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from "@heroui/react";
 
-export default function DeleteModal({ isOpen, onOpenChange, handleDelete }: DeleteModalProps) {
+export default function DeleteModal({ isOpen, onOpenChange, handleDelete, onClose }: DeleteModalProps) {
     return (
         <>
-            <Modal isOpen={isOpen} onOpenChange={onOpenChange} disableAnimation={true}>
+            <Modal isOpen={isOpen} onOpenChange={onOpenChange} disableAnimation={true} onClose={onClose}>
                 <ModalContent>
                     {(onClose) => (
                         <>
@@ -33,4 +33,5 @@ interface DeleteModalProps {
     isOpen: boolean;
     onOpenChange: () => void;
     handleDelete: () => void;
+    onClose?: () => void
 }

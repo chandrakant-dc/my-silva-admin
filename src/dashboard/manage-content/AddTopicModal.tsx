@@ -8,12 +8,16 @@ import {
     ModalFooter,
     Button,
     Input,
+    Select,
+    SelectItem,
 } from "@heroui/react";
 import TestTable from "./TestTable";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { ManageContext } from "./context/ManageContext";
 
 export default function AddTopicModal({ isOpen, onOpenChange }: AddCategoryModalProp) {
-    const [activeTab, setActiveTab] = useState("theory")
+    const [activeTab, setActiveTab] = useState("theory");
+    const { onOpenAddQue } = useContext(ManageContext)
     return (
         <>
             <Modal
@@ -31,6 +35,36 @@ export default function AddTopicModal({ isOpen, onOpenChange }: AddCategoryModal
                         <>
                             <ModalHeader className="flex flex-col gap-1">Create Topic</ModalHeader>
                             <ModalBody>
+                                <div className="flex gap-x-2">
+                                    <Select
+                                        // className="max-w-xs"
+                                        classNames={{
+                                            base: "input-field-base",
+                                            trigger: "input-field-wrapper data-[invalid=true]:!bg-white group-data-[focus=true]:!bg-white !bg-white data-[hover=true]:!bg-white",
+                                            // input: "input-field !text-black"
+                                        }}
+                                        placeholder="Select an category"
+                                        aria-label="Select an category"
+                                    >
+                                        {[{ key: "1", label: "1" }].map((item) => (
+                                            <SelectItem key={item.key}>{item.label}</SelectItem>
+                                        ))}
+                                    </Select>
+                                    <Select
+                                        // className="max-w-xs"
+                                        classNames={{
+                                            base: "input-field-base",
+                                            trigger: "input-field-wrapper data-[invalid=true]:!bg-white group-data-[focus=true]:!bg-white !bg-white data-[hover=true]:!bg-white",
+                                            // input: "input-field !text-black"
+                                        }}
+                                        placeholder="Select an sub category"
+                                        aria-label="Select an sub category"
+                                    >
+                                        {[{ key: "1", label: "1" }].map((item) => (
+                                            <SelectItem key={item.key}>{item.label}</SelectItem>
+                                        ))}
+                                    </Select>
+                                </div>
                                 <Input
                                     aria-label="Topic Name"
                                     placeholder="Topic Name"
@@ -65,7 +99,7 @@ export default function AddTopicModal({ isOpen, onOpenChange }: AddCategoryModal
                                             <div className="field">
                                                 <div className="flex justify-between mb-2">
                                                     <div className="field-label">Test</div>
-                                                    <button className="primary-btn h-8 max-w-28 text-sm">Add Question</button>
+                                                    <button onClick={onOpenAddQue} className="primary-btn h-8 max-w-28 text-sm">Add Question</button>
                                                 </div>
                                                 <TestTable />
                                             </div>

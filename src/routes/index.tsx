@@ -1,6 +1,6 @@
 import Category from "@/dashboard/category/Category";
 import Layout from "@/dashboard/Layout";
-import ManageContent from "@/dashboard/manage-content/ManageContent";
+import ManageContentIndex from "@/dashboard/manage-content/ManageContentIndex";
 import SubCategory from "@/dashboard/sub-category/SubCategory";
 import Login from "@/onboarding/login/Login";
 import OTP from "@/onboarding/otp/OTP";
@@ -18,7 +18,7 @@ export default function Index() {
                 <Route element={<Layout />} >
                     <Route path="/category" element={<Category />} />
                     <Route path="/sub-category" element={<SubCategory />} />
-                    <Route path="/manage-content" element={<ManageContent />} />
+                    <Route path="/manage-content" element={<ManageContentIndex />} />
                 </Route>
             </Routes>
         </BrowserRouter>
