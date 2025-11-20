@@ -1,4 +1,4 @@
-import Category from "@/dashboard/category/Category";
+import CategoryIndex from "@/dashboard/category/CategoryIndex";
 import Layout from "@/dashboard/Layout";
 import ManageContentIndex from "@/dashboard/manage-content/ManageContentIndex";
 import SubCategory from "@/dashboard/sub-category/SubCategory";
@@ -16,7 +16,7 @@ export default function Index() {
 
                 {/* Protected Routes */}
                 <Route element={<Layout />} >
-                    <Route path="/category" element={<Category />} />
+                    <Route path="/category" element={<CategoryIndex />} />
                     <Route path="/sub-category" element={<SubCategory />} />
                     <Route path="/manage-content" element={<ManageContentIndex />} />
                 </Route>

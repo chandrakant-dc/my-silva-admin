@@ -17,7 +17,7 @@ import { ManageContext } from "./context/ManageContext";
 
 export default function AddTopicModal({ isOpen, onOpenChange }: AddCategoryModalProp) {
     const [activeTab, setActiveTab] = useState("theory");
-    const { onOpenAddQue } = useContext(ManageContext)
+    const { onOpenAddQue, formik } = useContext(ManageContext)
     return (
         <>
             <Modal
@@ -37,28 +37,34 @@ export default function AddTopicModal({ isOpen, onOpenChange }: AddCategoryModal
                             <ModalBody>
                                 <div className="flex gap-x-2">
                                     <Select
-                                        // className="max-w-xs"
                                         classNames={{
                                             base: "input-field-base",
                                             trigger: "input-field-wrapper data-[invalid=true]:!bg-white group-data-[focus=true]:!bg-white !bg-white data-[hover=true]:!bg-white",
-                                            // input: "input-field !text-black"
                                         }}
                                         placeholder="Select an category"
                                         aria-label="Select an category"
+                                        id="category"
+                                        {...formik.getFieldProps("category")}
+                                        isInvalid={!!formik.errors.category && formik.touched.category}
+                                        errorMessage={formik.touched.category && formik.errors.category}
+                                        selectedKeys={[formik.values.category]}
                                     >
                                         {[{ key: "1", label: "1" }].map((item) => (
                                             <SelectItem key={item.key}>{item.label}</SelectItem>
                                         ))}
                                     </Select>
                                     <Select
-                                        // className="max-w-xs"
                                         classNames={{
                                             base: "input-field-base",
                                             trigger: "input-field-wrapper data-[invalid=true]:!bg-white group-data-[focus=true]:!bg-white !bg-white data-[hover=true]:!bg-white",
-                                            // input: "input-field !text-black"
                                         }}
                                         placeholder="Select an sub category"
                                         aria-label="Select an sub category"
+                                        id="subCategory"
+                                        {...formik.getFieldProps("subCategory")}
+                                        isInvalid={!!formik.errors.subCategory && formik.touched.subCategory}
+                                        errorMessage={formik.touched.subCategory && formik.errors.subCategory}
+                                        selectedKeys={[formik.values.subCategory]}
                                     >
                                         {[{ key: "1", label: "1" }].map((item) => (
                                             <SelectItem key={item.key}>{item.label}</SelectItem>
@@ -74,9 +80,10 @@ export default function AddTopicModal({ isOpen, onOpenChange }: AddCategoryModal
                                         inputWrapper: "input-field-wrapper data-[invalid=true]:!bg-white group-data-[focus=true]:!bg-white !bg-white data-[hover=true]:!bg-white",
                                         input: "input-field !text-black"
                                     }}
-                                // {...formik.getFieldProps("email")}
-                                // isInvalid={!!formik.errors.email && formik.touched.email}
-                                // errorMessage={formik.touched.email && formik.errors.email}
+                                    id="topicName"
+                                    {...formik.getFieldProps("topicName")}
+                                    isInvalid={!!formik.errors.topicName && formik.touched.topicName}
+                                    errorMessage={formik.touched.topicName && formik.errors.topicName}
                                 />
                                 <div className="topic-tab-wrapper">
                                     <button onClick={() => setActiveTab("theory")} className={`tab-btn ${activeTab === "theory" ? "active" : ""}`}>Theory</button>
@@ -88,10 +95,9 @@ export default function AddTopicModal({ isOpen, onOpenChange }: AddCategoryModal
                                             <div className="field">
                                                 <div className="field-label">Theory</div>
                                                 <MyEditor
-                                                    value={""}
+                                                    value={formik.values.theory}
                                                     onChange={(value) => {
-                                                        console.log(value);
-                                                        // form.setFieldValue("description", value)
+                                                        formik.setFieldValue("theory", value)
                                                     }}
                                                 />
                                             </div>
@@ -107,14 +113,17 @@ export default function AddTopicModal({ isOpen, onOpenChange }: AddCategoryModal
                                 </div>
                             </ModalBody>
                             <ModalFooter>
-                                <Button className="primary-btn" color="primary" onPress={onClose}>
+                                <Button className="primary-btn" color="primary" onPress={() => {
+                                    formik.submitForm()
+                                    onClose()
+                                }}>
                                     Create
                                 </Button>
                             </ModalFooter>
                         </>
                     )}
                 </ModalContent>
-            </Modal>
+            </Modal >
         </>
     )
 }

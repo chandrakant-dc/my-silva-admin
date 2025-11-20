@@ -12,6 +12,7 @@ export interface ManageContextI {
     onOpenChangeAddQue: () => void,
     onCloseAddQue: () => void,
     QueFormik: FormikProps<AddQuestionIniValI>,
+    handleFilterSubmit: () => void,
 }
 
 const initVal: ManageContextI = {
@@ -24,6 +25,7 @@ const initVal: ManageContextI = {
     onOpenAddQue: () => { },
     onOpenChangeAddQue: () => { },
     onCloseAddQue: () => { },
+    handleFilterSubmit: () => { }
 }
 
 export const ManageContext = createContext<ManageContextI>(initVal);

@@ -4,10 +4,12 @@ import AddCategoryModal from "./AddCategoryModal";
 import EditRowIcon from "@/svg/EditRowIcon";
 import DeleteIcon from "@/svg/DeleteIcon";
 import DeleteModal from "@/ui/DeleteModal";
+import { useContext } from "react";
+import { CategoryContext } from "./context/CategoryContext";
 
 export default function Category() {
-    const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const { isOpen: isOpenD, onOpen: onOpenD, onOpenChange: onOpenChangeD } = useDisclosure();
+    const { isOpen, onOpen, onOpenChange, formik } = useContext(CategoryContext);
     return (
         <>
             <div className="p-4">
@@ -37,8 +39,14 @@ export default function Category() {
                                 <td className="px-4 py-2">demo</td>
                                 <td className="px-4 py-2">
                                     <div className="flex items-center justify-end gap-x-4">
-                                        <button onClick={onOpen}><EditRowIcon /></button>
-                                        <button onClick={() => onOpenD()}><DeleteIcon /></button>
+                                        <button onClick={() => {
+                                            formik.setFieldValue("id", "__");
+                                            onOpen();
+                                        }}><EditRowIcon /></button>
+                                        <button onClick={() => {
+                                            formik.setFieldValue("id", "__");
+                                            onOpenD()
+                                        }}><DeleteIcon /></button>
                                     </div>
                                 </td>
                             </tr>
@@ -86,6 +94,9 @@ export default function Category() {
                 isOpen={isOpenD}
                 onOpenChange={onOpenChangeD}
                 handleDelete={() => ""}
+                onClose={() => {
+                    formik.resetForm();
+                }}
             />
         </>
     )

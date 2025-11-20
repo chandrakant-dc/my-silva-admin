@@ -5,10 +5,13 @@ import AddTopicModal from "./AddTopicModal";
 import { Select, SelectItem, useDisclosure } from "@heroui/react";
 import AvailSeatIcon from "@/svg/AvailSeatIcon";
 import "./manage-content.css";
+import { useContext } from "react";
+import { ManageContext } from "./context/ManageContext";
 
 export default function ManageContent() {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const { isOpen: isOpenD, onOpen: onOpenD, onOpenChange: onOpenChangeD } = useDisclosure();
+    const { formik, handleFilterSubmit } = useContext(ManageContext);
     return (
         <>
             <div className="p-4">
@@ -18,39 +21,45 @@ export default function ManageContent() {
                 <div className="flex items-center gap-x-4">
                     <div className="whitespace-nowrap font-medium">Filter :</div>
                     <Select
-                        // className="max-w-xs"
                         classNames={{
                             base: "input-field-base",
                             trigger: "input-field-wrapper data-[invalid=true]:!bg-white group-data-[focus=true]:!bg-white !bg-white data-[hover=true]:!bg-white",
-                            // input: "input-field !text-black"
                         }}
                         placeholder="Select an category"
                         aria-label="Select an category"
+                        id="category"
+                        {...formik.getFieldProps("category")}
+                        isInvalid={!!formik.errors.category && formik.touched.category}
+                        errorMessage={formik.touched.category && formik.errors.category}
+                        selectedKeys={[formik.values.category]}
                     >
                         {[{ key: "1", label: "1" }].map((item) => (
                             <SelectItem key={item.key}>{item.label}</SelectItem>
                         ))}
                     </Select>
                     <Select
-                        // className="max-w-xs"
                         classNames={{
                             base: "input-field-base",
                             trigger: "input-field-wrapper data-[invalid=true]:!bg-white group-data-[focus=true]:!bg-white !bg-white data-[hover=true]:!bg-white",
-                            // input: "input-field !text-black"
                         }}
                         placeholder="Select an sub category"
                         aria-label="Select an sub category"
+                        id="subCategory"
+                        {...formik.getFieldProps("subCategory")}
+                        isInvalid={!!formik.errors.subCategory && formik.touched.subCategory}
+                        errorMessage={formik.touched.subCategory && formik.errors.subCategory}
+                        selectedKeys={[formik.values.subCategory]}
                     >
                         {[{ key: "1", label: "1" }].map((item) => (
                             <SelectItem key={item.key}>{item.label}</SelectItem>
                         ))}
                     </Select>
-                    <button onClick={onOpen} className="primary-btn max-w-28 h-10 text-sm">Submit</button>
+                    <button onClick={handleFilterSubmit} className="primary-btn max-w-28 h-10 text-sm">Submit</button>
                 </div>
                 <div className="flex items-center justify-end h-9">
                     <button onClick={onOpen} className="primary-btn max-w-28 h-full text-sm">Add New</button>
                 </div>
-                <div className="overflow-x-auto h-[calc(100vh-145px)] border rounded-lg mt-4">
+                <div className="overflow-x-auto h-[calc(100vh-185px)] border rounded-lg mt-4">
                     <table className="min-w-full">
                         <thead className="bg-gray-100">
                             <tr>

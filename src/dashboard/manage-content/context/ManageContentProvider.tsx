@@ -11,7 +11,8 @@ export default function ManageContentProvider({ children }: { children: React.Re
         onOpenAddQue,
         onOpenChangeAddQue,
         onCloseAddQue,
-        QueFormik
+        QueFormik,
+        handleFilterSubmit
     } = useManageContent();
     return (
         <>
@@ -24,7 +25,8 @@ export default function ManageContentProvider({ children }: { children: React.Re
                 onOpenAddQue,
                 onOpenChangeAddQue,
                 onCloseAddQue,
-                QueFormik
+                QueFormik,
+                handleFilterSubmit
             }}>
                 {children}
             </ManageContext.Provider>

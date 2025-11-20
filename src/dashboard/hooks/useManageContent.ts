@@ -4,7 +4,11 @@ import { useFormik } from "formik"
 import { useEffect, useState } from "react";
 
 const initialValues: TopicInitVal = {
-    topicQuestions: []
+    topicQuestions: [],
+    category: "",
+    subCategory: "",
+    topicName: "",
+    theory: ""
 }
 
 const initialValuesQue: AddQuestionIniValI = {
@@ -73,6 +77,8 @@ export default function useManageContent() {
         QueFormik.resetForm();
     }
 
+    const handleFilterSubmit = () => { }
+
     return {
         formik,
         currQueIdx,
@@ -82,6 +88,7 @@ export default function useManageContent() {
         onOpenAddQue,
         onOpenChangeAddQue,
         onCloseAddQue,
-        QueFormik
+        QueFormik,
+        handleFilterSubmit
     }
 }

@@ -8,7 +8,11 @@ export type topicQuestionsDetails = {
 }
 
 export interface TopicInitVal {
-    topicQuestions: topicQuestionsDetails[]
+    category: string;
+    subCategory: string;
+    topicName: string;
+    theory: string;
+    topicQuestions: topicQuestionsDetails[];
 }
 
 export interface AddQuestionIniValI {
