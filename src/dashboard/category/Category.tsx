@@ -9,7 +9,7 @@ import { CategoryContext } from "./context/CategoryContext";
 
 export default function Category() {
     const { isOpen: isOpenD, onOpen: onOpenD, onOpenChange: onOpenChangeD } = useDisclosure();
-    const { isOpen, onOpen, onOpenChange, formik } = useContext(CategoryContext);
+    const { isOpen, onOpen, onOpenChange, formik, handleDelete } = useContext(CategoryContext);
     return (
         <>
             <div className="p-4">
@@ -93,7 +93,7 @@ export default function Category() {
             <DeleteModal
                 isOpen={isOpenD}
                 onOpenChange={onOpenChangeD}
-                handleDelete={() => ""}
+                handleDelete={handleDelete}
                 onClose={() => {
                     formik.resetForm();
                 }}

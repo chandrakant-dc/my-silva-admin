@@ -1,13 +1,14 @@
-import type { CategoryInitI } from "@/types/category.type"
+import type { SubCategoryInitI } from "@/types/sub-category.type"
 import { useDisclosure } from "@heroui/react";
 import { useFormik } from "formik"
 
-const initialValues: CategoryInitI = {
+const initialValues: SubCategoryInitI = {
+    id: "",
     category: "",
-    id: ""
+    subCategory: ""
 }
 
-export default function useCategory() {
+export default function useSubCategory() {
     const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
 
     const formik = useFormik({

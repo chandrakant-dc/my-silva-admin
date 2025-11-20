@@ -7,6 +7,7 @@ export interface CategoryContextI {
     isOpen: boolean;
     onOpen: () => void;
     onOpenChange: () => void;
+    handleDelete: () => void;
 }
 
 const initVal: CategoryContextI = {
@@ -14,6 +15,7 @@ const initVal: CategoryContextI = {
     isOpen: false,
     onOpen: () => { },
     onOpenChange: () => { },
+    handleDelete: () => { }
 }
 
 export const CategoryContext = createContext<CategoryContextI>(initVal);

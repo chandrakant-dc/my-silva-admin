@@ -3,10 +3,12 @@ import EditRowIcon from "@/svg/EditRowIcon";
 import DeleteModal from "@/ui/DeleteModal";
 import { useDisclosure } from "@heroui/react";
 import AddSubCategoryModal from "./AddSubCategoryModal";
+import { useContext } from "react";
+import { SubCategoryContext } from "./context/SubCategoryContext";
 
 export default function SubCategory() {
-    const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const { isOpen: isOpenD, onOpen: onOpenD, onOpenChange: onOpenChangeD } = useDisclosure();
+    const { formik, isOpen, onOpenChange, onOpen, handleDelete } = useContext(SubCategoryContext);
 
     return (
         <>
@@ -41,8 +43,14 @@ export default function SubCategory() {
                                 <td className="px-4 py-2">demo</td>
                                 <td className="px-4 py-2">
                                     <div className="flex items-center justify-end gap-x-4">
-                                        <button onClick={onOpen}><EditRowIcon /></button>
-                                        <button onClick={() => onOpenD()}><DeleteIcon /></button>
+                                        <button onClick={() => {
+                                            formik.setFieldValue("id", "__");
+                                            onOpen();
+                                        }}><EditRowIcon /></button>
+                                        <button onClick={() => {
+                                            formik.setFieldValue("id", "__");
+                                            onOpenD()
+                                        }}><DeleteIcon /></button>
                                     </div>
                                 </td>
                             </tr>
@@ -92,7 +100,10 @@ export default function SubCategory() {
             <DeleteModal
                 isOpen={isOpenD}
                 onOpenChange={onOpenChangeD}
-                handleDelete={() => ""}
+                handleDelete={handleDelete}
+                onClose={() => {
+                    formik.resetForm();
+                }}
             />
         </>
     )
