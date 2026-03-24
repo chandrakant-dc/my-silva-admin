@@ -5,20 +5,26 @@ import SubCategoryIndex from "@/dashboard/sub-category/SubCategoryIndex";
 import Login from "@/onboarding/login/Login";
 import OTP from "@/onboarding/otp/OTP";
 import { BrowserRouter, Route, Routes } from "react-router";
+import ProtectedRoute from "./ProtectedRoute";
+import PublicRoute from "./PublicRoute";
 
 export default function Index() {
     return (
         <BrowserRouter>
             <Routes>
                 {/* Public Routes */}
-                <Route index element={<Login />} />
-                <Route path="/otp" element={<OTP />} />
+                <Route element={<PublicRoute />}>
+                    <Route index element={<Login />} />
+                    <Route path="/otp" element={<OTP />} />
+                </Route>
 
                 {/* Protected Routes */}
-                <Route element={<Layout />} >
-                    <Route path="/category" element={<CategoryIndex />} />
-                    <Route path="/sub-category" element={<SubCategoryIndex />} />
-                    <Route path="/manage-content" element={<ManageContentIndex />} />
+                <Route element={<ProtectedRoute />}>
+                    <Route element={<Layout />} >
+                        <Route path="/category" element={<CategoryIndex />} />
+                        <Route path="/sub-category" element={<SubCategoryIndex />} />
+                        <Route path="/manage-content" element={<ManageContentIndex />} />
+                    </Route>
                 </Route>
             </Routes>
         </BrowserRouter>

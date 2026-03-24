@@ -1,7 +1,9 @@
-import { useState } from "react";
-import type { OtpI } from "../onboard.types"
-import { useFormik } from "formik";
 import { otpSchema } from "@/schema/auth.schema";
+import { verify2FAOtp, verifyEmailOtp } from "@/services/auth.service";
+import { addToast } from "@heroui/react";
+import { useFormik } from "formik";
+import { useState } from "react";
+import type { OtpI } from "../onboard.types";
 
 const initialValues: OtpI = {
     otp: "",
@@ -11,6 +13,7 @@ const initialValues: OtpI = {
 
 export default function useOtp() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [otpType, setOtpType] = useState<"email" | "2fa">("email");
 
     const formik = useFormik({
         initialValues,
@@ -18,12 +21,48 @@ export default function useOtp() {
         onSubmit: handleOTP
     })
 
-    function handleOTP() {
-        setIsLoading(true);
+    async function handleOTP(val: OtpI) {
+        try {
+            setIsLoading(true);
+            if (otpType === "email") {
+                const email = sessionStorage.getItem("aid") || "";
+                const payload = { email, otp: val.otp }
+                const resp = await verifyEmailOtp(payload);
+                addToast({
+                    title: resp?.data.message || "email otp verified",
+                    color: "success"
+                });
+                setTimeout(() => {
+                    sessionStorage.removeItem("aid");
+                    sessionStorage.setItem("aid", resp?.data?.adminId);
+                    setIsLoading(false);
+                    formik.resetForm();
+                    setOtpType("2fa");
+                }, 2000);
+            } else {
+                const adminId = sessionStorage.getItem("aid") || "";
+                const payload = { adminId, token: val.otp }
+                const resp = await verify2FAOtp(payload);
+                addToast({
+                    title: resp?.data.message || "admin login",
+                    color: "success"
+                });
+                setTimeout(() => {
+                    sessionStorage.removeItem("aid");
+                    setIsLoading(false);
+                    formik.resetForm();
+                    window.location.href = "/category";
+                }, 2000);
+            }
+        } catch (error) {
+            setIsLoading(false);
+            throw error;
+        }
     }
 
     return {
         formik,
-        isLoading
+        isLoading,
+        otpType
     }
 }

@@ -1,16 +1,17 @@
-import { Link, useLocation } from "react-router";
-import "./sidebar.css";
-import SideNavList from "./sidebar-content";
-import LogoutIcon from "@/svg/LogoutIcon";
+import { logoutApi } from "@/services/auth.service";
 import CloseMenuIcon from "@/svg/CloseMenuIcon";
-import Cookies from "js-cookie";
+import LogoutIcon from "@/svg/LogoutIcon";
+import { Link, useLocation } from "react-router";
+import SideNavList from "./sidebar-content";
+import "./sidebar.css";
 
 export default function SideBar({ toggleMenu, handleClose }: { toggleMenu: boolean, handleClose: React.Dispatch<React.SetStateAction<boolean>> }) {
     const { pathname } = useLocation();
     const currentPage = pathname.split("/").at(-1)
 
-    const handleLogout = () => {
-        Cookies.remove("sitkn")
+    const handleLogout = async () => {
+        // Cookies.remove("sitkn")
+        await logoutApi();
         window.location.href = "/"
     }
 

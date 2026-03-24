@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import { AuthContext } from "./AuthContext";
 import { checkAuthUser } from "@/services/auth.service";
+import { useEffect, useState } from "react";
+import { AuthContext } from "./AuthContext";
 // import { ToastContainer } from "react-toastify";
 
 
@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     async function verify() {
         try {
             const resp = await checkAuthUser();
-            if (resp.data?.status === "yes") {
+            if (resp.data?.status) {
                 setAuthenticated(true);
                 setLoading(false);
             } else {
@@ -20,9 +20,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
                 setLoading(false);
             }
         } catch (error) {
-            const er = error as { response: { data: { status: string } } }
+            const er = error as { response: { data: { status: boolean } } }
             const status = er?.response?.data?.status;
-            if (status === "no") {
+            if (status === false) {
                 setAuthenticated(false);
                 setLoading(false);
             }

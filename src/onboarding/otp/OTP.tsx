@@ -3,14 +3,14 @@ import OnboardLayout from "../OnboardLayout";
 import useOtp from "../hooks/useOtp";
 
 export default function OTP() {
-    const { formik, isLoading } = useOtp();
+    const { formik, isLoading, otpType } = useOtp();
     return (
         <>
-            <OnboardLayout title="Verify OTP">
+            <OnboardLayout title={otpType === "email" ? "Verify Email OTP" : "Verify 2FA Code"}>
                 <form onSubmit={formik.handleSubmit}>
                     <Input
                         aria-label="OTP"
-                        placeholder="Enter OTP"
+                        placeholder={otpType === "email" ? "Enter Email OTP" : "Enter 2FA Code"}
                         type="text"
                         classNames={{
                             base: "input-field-base",
