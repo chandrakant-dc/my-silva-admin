@@ -7,7 +7,8 @@ export default function CategoryProvider({ children }: { children: React.ReactNo
         isOpen,
         onOpen,
         onOpenChange,
-        handleDelete
+        handleDelete,
+        categoryList
     } = useCategory();
     return (
         <>
@@ -16,7 +17,8 @@ export default function CategoryProvider({ children }: { children: React.ReactNo
                 isOpen,
                 onOpen,
                 onOpenChange,
-                handleDelete
+                handleDelete,
+                categoryList
             }}>
                 {children}
             </CategoryContext.Provider>

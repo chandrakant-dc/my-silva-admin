@@ -1,3 +1,4 @@
+import type { CategoryListI } from "@/dashboard/hooks/useCategory";
 import type { CategoryInitI } from "@/types/category.type";
 import type { FormikProps } from "formik";
 import { createContext } from "react";
@@ -7,7 +8,8 @@ export interface CategoryContextI {
     isOpen: boolean;
     onOpen: () => void;
     onOpenChange: () => void;
-    handleDelete: () => void;
+    handleDelete: () => Promise<void>;
+    categoryList: CategoryListI[];
 }
 
 const initVal: CategoryContextI = {
@@ -15,7 +17,8 @@ const initVal: CategoryContextI = {
     isOpen: false,
     onOpen: () => { },
     onOpenChange: () => { },
-    handleDelete: () => { }
+    handleDelete: async () => { },
+    categoryList: []
 }
 
 export const CategoryContext = createContext<CategoryContextI>(initVal);
