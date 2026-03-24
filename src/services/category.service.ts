@@ -15,3 +15,21 @@ export const deleteCategory = (categoryId: string) => {
 export const getAllCategory = () => {
     return axiosInstance.get(`/category`);
 }
+
+// sub-category
+
+export const createSubCategory = (data: { name: string, categoryId: string }) => {
+    return axiosInstance.post(`/subcategory`, data);
+}
+
+export const updateSubCategory = (data: { id: string, name: string, categoryId: string }) => {
+    return axiosInstance.put(`/subcategory`, data);
+}
+
+export const deleteSubCategory = (subcategoryId: string) => {
+    return axiosInstance.delete(`/subcategory/${subcategoryId}`);
+}
+
+export const getAllSubCategory = () => {
+    return axiosInstance.get(`/subcategory`);
+}

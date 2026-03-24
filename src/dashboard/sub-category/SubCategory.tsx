@@ -2,13 +2,13 @@ import DeleteIcon from "@/svg/DeleteIcon";
 import EditRowIcon from "@/svg/EditRowIcon";
 import DeleteModal from "@/ui/DeleteModal";
 import { useDisclosure } from "@heroui/react";
-import AddSubCategoryModal from "./AddSubCategoryModal";
 import { useContext } from "react";
+import AddSubCategoryModal from "./AddSubCategoryModal";
 import { SubCategoryContext } from "./context/SubCategoryContext";
 
 export default function SubCategory() {
-    const { isOpen: isOpenD, onOpen: onOpenD, onOpenChange: onOpenChangeD } = useDisclosure();
-    const { formik, isOpen, onOpenChange, onOpen, handleDelete } = useContext(SubCategoryContext);
+    const { isOpen: isOpenD, onOpen: onOpenD, onOpenChange: onOpenChangeD, onClose } = useDisclosure();
+    const { formik, isOpen, onOpenChange, onOpen, handleDelete, subcategoryList } = useContext(SubCategoryContext);
 
     return (
         <>
@@ -37,56 +37,29 @@ export default function SubCategory() {
                         </thead>
 
                         <tbody>
-                            <tr className="border-t">
-                                <td className="px-4 py-2">1</td>
-                                <td className="px-4 py-2">demo</td>
-                                <td className="px-4 py-2">demo</td>
-                                <td className="px-4 py-2">
-                                    <div className="flex items-center justify-end gap-x-4">
-                                        <button onClick={() => {
-                                            formik.setFieldValue("id", "__");
-                                            onOpen();
-                                        }}><EditRowIcon /></button>
-                                        <button onClick={() => {
-                                            formik.setFieldValue("id", "__");
-                                            onOpenD()
-                                        }}><DeleteIcon /></button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr className="border-t">
-                                <td className="px-4 py-2">1</td>
-                                <td className="px-4 py-2">demo</td>
-                                <td className="px-4 py-2">demo</td>
-                                <td className="px-4 py-2">
-                                    <div className="flex items-center justify-end gap-x-4">
-                                        <button onClick={onOpen}><EditRowIcon /></button>
-                                        <button onClick={() => onOpenD()}><DeleteIcon /></button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr className="border-t">
-                                <td className="px-4 py-2">1</td>
-                                <td className="px-4 py-2">demo</td>
-                                <td className="px-4 py-2">demo</td>
-                                <td className="px-4 py-2">
-                                    <div className="flex items-center justify-end gap-x-4">
-                                        <button onClick={onOpen}><EditRowIcon /></button>
-                                        <button onClick={() => onOpenD()}><DeleteIcon /></button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr className="border-y">
-                                <td className="px-4 py-2">1</td>
-                                <td className="px-4 py-2">demo</td>
-                                <td className="px-4 py-2">demo</td>
-                                <td className="px-4 py-2">
-                                    <div className="flex items-center justify-end gap-x-4">
-                                        <button onClick={onOpen}><EditRowIcon /></button>
-                                        <button onClick={() => onOpenD()}><DeleteIcon /></button>
-                                    </div>
-                                </td>
-                            </tr>
+                            {
+                                subcategoryList.map((item, i) => (
+                                    <tr className="border-t" key={`subcategory-${i + 1}`}>
+                                        <td className="px-4 py-2">{i + 1}</td>
+                                        <td className="px-4 py-2">{item?.name}</td>
+                                        <td className="px-4 py-2">{item?.category?.name}</td>
+                                        <td className="px-4 py-2">
+                                            <div className="flex items-center justify-end gap-x-4">
+                                                <button onClick={() => {
+                                                    formik.setFieldValue("id", item?._id);
+                                                    formik.setFieldValue("category", item?.category?._id);
+                                                    formik.setFieldValue("subCategory", item?.name);
+                                                    onOpen();
+                                                }}><EditRowIcon /></button>
+                                                <button onClick={() => {
+                                                    formik.setFieldValue("id", item?._id);
+                                                    onOpenD()
+                                                }}><DeleteIcon /></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))
+                            }
                         </tbody>
                     </table>
                 </div>
@@ -100,7 +73,10 @@ export default function SubCategory() {
             <DeleteModal
                 isOpen={isOpenD}
                 onOpenChange={onOpenChangeD}
-                handleDelete={handleDelete}
+                handleDelete={async () => {
+                    await handleDelete();
+                    onClose();
+                }}
                 onClose={() => {
                     formik.resetForm();
                 }}

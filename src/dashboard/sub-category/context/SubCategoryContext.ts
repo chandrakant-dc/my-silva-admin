@@ -1,3 +1,4 @@
+import type { CategoryListI, SubCategoryListI } from "@/dashboard/hooks/useSubCategory";
 import type { SubCategoryInitI } from "@/types/sub-category.type";
 import type { FormikProps } from "formik";
 import { createContext } from "react";
@@ -7,7 +8,9 @@ export interface SubCategoryContextI {
     isOpen: boolean;
     onOpen: () => void;
     onOpenChange: () => void;
-    handleDelete: () => void;
+    handleDelete: () => Promise<void>;
+    categoryList: CategoryListI[];
+    subcategoryList: SubCategoryListI[];
 }
 
 const initVal: SubCategoryContextI = {
@@ -15,7 +18,9 @@ const initVal: SubCategoryContextI = {
     isOpen: false,
     onOpen: () => { },
     onOpenChange: () => { },
-    handleDelete: () => { }
+    handleDelete: async () => { },
+    categoryList: [],
+    subcategoryList: []
 }
 
 

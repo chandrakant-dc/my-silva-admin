@@ -7,7 +7,9 @@ export default function SubCategoryProvider({ children }: { children: React.Reac
         isOpen,
         onOpen,
         onOpenChange,
-        handleDelete
+        handleDelete,
+        categoryList,
+        subcategoryList
     } = useSubCategory();
     return (
         <>
@@ -16,7 +18,9 @@ export default function SubCategoryProvider({ children }: { children: React.Reac
                 isOpen,
                 onOpen,
                 onOpenChange,
-                handleDelete
+                handleDelete,
+                categoryList,
+                subcategoryList
             }}>
                 {children}
             </SubCategoryContext.Provider>

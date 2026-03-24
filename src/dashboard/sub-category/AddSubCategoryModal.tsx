@@ -1,12 +1,12 @@
 import type { AddCategoryModalProp } from "@/types/category.type";
 import {
-    Modal,
-    ModalContent,
-    ModalHeader,
-    ModalBody,
-    ModalFooter,
     Button,
     Input,
+    Modal,
+    ModalBody,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
     Select,
     SelectItem,
 } from "@heroui/react";
@@ -14,7 +14,7 @@ import { useContext } from "react";
 import { SubCategoryContext } from "./context/SubCategoryContext";
 
 export default function AddSubCategoryModal({ isOpen, onOpenChange }: AddCategoryModalProp) {
-    const { formik } = useContext(SubCategoryContext);
+    const { formik, categoryList } = useContext(SubCategoryContext);
     return (
         <>
             <Modal
@@ -47,8 +47,8 @@ export default function AddSubCategoryModal({ isOpen, onOpenChange }: AddCategor
                                     isInvalid={!!formik.errors.category && formik.touched.category}
                                     errorMessage={formik.touched.category && formik.errors.category}
                                 >
-                                    {[{ key: "1", label: "1" }].map((item) => (
-                                        <SelectItem key={item.key}>{item.label}</SelectItem>
+                                    {categoryList.map((item) => (
+                                        <SelectItem key={item._id}>{item.name}</SelectItem>
                                     ))}
                                 </Select>
                                 <Input
