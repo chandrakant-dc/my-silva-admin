@@ -44,6 +44,7 @@ export default function Category() {
                                                 <button onClick={() => {
                                                     formik.setFieldValue("id", item?._id);
                                                     formik.setFieldValue("category", item?.name);
+                                                    formik.setFieldValue("image", item?.image);
                                                     onOpen();
                                                 }}><EditRowIcon /></button>
                                                 <button onClick={() => {

@@ -6,7 +6,8 @@ import { useEffect, useState } from "react";
 
 const initialValues: CategoryInitI = {
     category: "",
-    id: ""
+    id: "",
+    image: ""
 }
 
 export default function useCategory() {
@@ -16,14 +17,19 @@ export default function useCategory() {
     const formik = useFormik({
         initialValues,
         onSubmit: async (val: CategoryInitI) => {
+            const formData = new FormData();
+            formData.append("name", val?.category);
+            if (val?.image) formData.append("image", val.image);
+
             if (val?.id) {
-                const resp = await updateCategory({ name: val?.category, id: val?.id });
+                formData.append("id", val?.id);
+                const resp = await updateCategory(formData);
                 addToast({
                     title: resp?.data.message || "category updated",
                     color: "success"
                 });
             } else {
-                const resp = await createCategory({ name: val?.category });
+                const resp = await createCategory(formData);
                 addToast({
                     title: resp?.data.message || "category created",
                     color: "success"
@@ -74,4 +80,5 @@ export default function useCategory() {
 export interface CategoryListI {
     name: string;
     _id: string;
+    image: string;
 }

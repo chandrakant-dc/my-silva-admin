@@ -6,4 +6,5 @@ export interface AddCategoryModalProp {
 export interface CategoryInitI {
     category: string;
     id: string;
+    image: File | string | null;
 }

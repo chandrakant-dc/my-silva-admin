@@ -1,11 +1,15 @@
 import axiosInstance from "@/config/axios-instance";
 
-export const createCategory = (data: { name: string }) => {
-    return axiosInstance.post(`/category`, data);
+export const createCategory = (data: FormData) => {
+    return axiosInstance.post(`/category`, data, {
+        headers: { "Content-Type": "multipart/form-data" },
+    });
 }
 
-export const updateCategory = (data: { name: string, id: string }) => {
-    return axiosInstance.put(`/category`, data);
+export const updateCategory = (data: FormData) => {
+    return axiosInstance.put(`/category`, data, {
+        headers: { "Content-Type": "multipart/form-data" },
+    });
 }
 
 export const deleteCategory = (categoryId: string) => {
@@ -18,12 +22,16 @@ export const getAllCategory = () => {
 
 // sub-category
 
-export const createSubCategory = (data: { name: string, categoryId: string }) => {
-    return axiosInstance.post(`/subcategory`, data);
+export const createSubCategory = (data: FormData) => {
+    return axiosInstance.post(`/subcategory`, data, {
+        headers: { "Content-Type": "multipart/form-data" },
+    });
 }
 
-export const updateSubCategory = (data: { id: string, name: string, categoryId: string }) => {
-    return axiosInstance.put(`/subcategory`, data);
+export const updateSubCategory = (data: FormData) => {
+    return axiosInstance.put(`/subcategory`, data, {
+        headers: { "Content-Type": "multipart/form-data" },
+    });
 }
 
 export const deleteSubCategory = (subcategoryId: string) => {

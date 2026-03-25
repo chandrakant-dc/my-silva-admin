@@ -49,6 +49,8 @@ export default function SubCategory() {
                                                     formik.setFieldValue("id", item?._id);
                                                     formik.setFieldValue("category", item?.category?._id);
                                                     formik.setFieldValue("subCategory", item?.name);
+                                                    formik.setFieldValue("description", item?.description);
+                                                    formik.setFieldValue("image", item?.image);
                                                     onOpen();
                                                 }}><EditRowIcon /></button>
                                                 <button onClick={() => {

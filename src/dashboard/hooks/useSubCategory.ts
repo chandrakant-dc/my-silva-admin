@@ -7,7 +7,9 @@ import { useEffect, useState } from "react";
 const initialValues: SubCategoryInitI = {
     id: "",
     category: "",
-    subCategory: ""
+    subCategory: "",
+    description: "",
+    image: null
 }
 
 export default function useSubCategory() {
@@ -18,14 +20,20 @@ export default function useSubCategory() {
     const formik = useFormik({
         initialValues,
         onSubmit: async (val: SubCategoryInitI) => {
+            const formData = new FormData();
+            formData.append("name", val?.subCategory);
+            formData.append("categoryId", val?.category);
+            formData.append("description", val?.description);
+            if (val?.image) formData.append("image", val?.image);
             if (val?.id) {
-                const resp = await updateSubCategory({ name: val?.subCategory, id: val?.id, categoryId: val?.category });
+                formData.append("id", val?.id);
+                const resp = await updateSubCategory(formData);
                 addToast({
                     title: resp?.data.message || "subcategory updated",
                     color: "success"
                 });
             } else {
-                const resp = await createSubCategory({ name: val?.subCategory, categoryId: val?.category });
+                const resp = await createSubCategory(formData);
                 addToast({
                     title: resp?.data.message || "subcategory created",
                     color: "success"
@@ -92,5 +100,7 @@ export interface SubCategoryListI {
     category: {
         _id: string;
         name: string;
-    }
+    },
+    description: string;
+    image: string;
 }
