@@ -1,4 +1,4 @@
-import { Modal, ModalContent, ModalBody, Input, Select, SelectItem, ModalFooter, Button } from "@heroui/react";
+import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, Select, SelectItem } from "@heroui/react";
 import { useContext } from "react";
 import { ManageContext } from "./context/ManageContext";
 
@@ -35,7 +35,7 @@ export default function AddQuestionModal() {
                                         placeholder="Enter Question"
                                         type="text"
                                         classNames={{
-                                            inputWrapper: "input-field data-[invalid=true]:!bg-white group-data-[focus=true]:!bg-white !bg-white data-[hover=true]:!bg-white",
+                                            inputWrapper: "input-field data-[invalid=true]:!bg-white group-data-[focus=true]:!bg-white !bg-white data-[hover=true]:!bg-white border border-[#b7b7b7]",
                                             label: "label-text !text-(var(--primary-color))",
                                             base: "mb-10"
                                         }}
@@ -52,7 +52,7 @@ export default function AddQuestionModal() {
                                         placeholder="Enter Option A"
                                         type="text"
                                         classNames={{
-                                            inputWrapper: "input-field data-[invalid=true]:!bg-white group-data-[focus=true]:!bg-white !bg-white data-[hover=true]:!bg-white",
+                                            inputWrapper: "input-field data-[invalid=true]:!bg-white group-data-[focus=true]:!bg-white !bg-white data-[hover=true]:!bg-white border border-[#b7b7b7]",
                                             label: "label-text !text-(var(--primary-color))",
                                             base: "mb-10"
                                         }}
@@ -70,7 +70,7 @@ export default function AddQuestionModal() {
                                         placeholder="Enter Option B"
                                         type="text"
                                         classNames={{
-                                            inputWrapper: "input-field data-[invalid=true]:!bg-white group-data-[focus=true]:!bg-white !bg-white data-[hover=true]:!bg-white",
+                                            inputWrapper: "input-field data-[invalid=true]:!bg-white group-data-[focus=true]:!bg-white !bg-white data-[hover=true]:!bg-white border border-[#b7b7b7]",
                                             label: "label-text !text-(var(--primary-color))",
                                             base: "mb-10"
                                         }}
@@ -88,7 +88,7 @@ export default function AddQuestionModal() {
                                         placeholder="Enter Option C"
                                         type="text"
                                         classNames={{
-                                            inputWrapper: "input-field data-[invalid=true]:!bg-white group-data-[focus=true]:!bg-white !bg-white data-[hover=true]:!bg-white",
+                                            inputWrapper: "input-field data-[invalid=true]:!bg-white group-data-[focus=true]:!bg-white !bg-white data-[hover=true]:!bg-white border border-[#b7b7b7]",
                                             label: "label-text !text-(var(--primary-color))",
                                             base: "mb-10"
                                         }}
@@ -106,7 +106,7 @@ export default function AddQuestionModal() {
                                         placeholder="Enter Option D"
                                         type="text"
                                         classNames={{
-                                            inputWrapper: "input-field data-[invalid=true]:!bg-white group-data-[focus=true]:!bg-white !bg-white data-[hover=true]:!bg-white",
+                                            inputWrapper: "input-field data-[invalid=true]:!bg-white group-data-[focus=true]:!bg-white !bg-white data-[hover=true]:!bg-white border border-[#b7b7b7]",
                                             label: "label-text !text-(var(--primary-color))",
                                             base: "mb-10"
                                         }}
@@ -123,7 +123,7 @@ export default function AddQuestionModal() {
                                         labelPlacement="outside"
                                         aria-label="Correct Answer"
                                         classNames={{
-                                            trigger: "input-field data-[invalid=true]:!bg-white group-data-[focus=true]:!bg-white !bg-white data-[hover=true]:!bg-white",
+                                            trigger: "input-field data-[invalid=true]:!bg-white group-data-[focus=true]:!bg-white !bg-white data-[hover=true]:!bg-white border border-[#b7b7b7]",
                                             label: "label-text text-[#11181c] !left-0 -translate-y-[calc(100%_+_theme(fontSize.small)/2_+_20px)] !text-(var(--primary-color))"
                                         }}
                                         placeholder="Select answer"

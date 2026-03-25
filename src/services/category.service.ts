@@ -30,6 +30,7 @@ export const deleteSubCategory = (subcategoryId: string) => {
     return axiosInstance.delete(`/subcategory/${subcategoryId}`);
 }
 
-export const getAllSubCategory = () => {
-    return axiosInstance.get(`/subcategory`);
+export const getAllSubCategory = (categoryId?: string) => {
+    const endpoint = categoryId ? `/subcategory/${categoryId}` : `/subcategory`;
+    return axiosInstance.get(endpoint);
 }

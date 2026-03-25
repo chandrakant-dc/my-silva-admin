@@ -41,8 +41,8 @@ export default function SubCategory() {
                                 subcategoryList.map((item, i) => (
                                     <tr className="border-t" key={`subcategory-${i + 1}`}>
                                         <td className="px-4 py-2">{i + 1}</td>
-                                        <td className="px-4 py-2">{item?.name}</td>
                                         <td className="px-4 py-2">{item?.category?.name}</td>
+                                        <td className="px-4 py-2">{item?.name}</td>
                                         <td className="px-4 py-2">
                                             <div className="flex items-center justify-end gap-x-4">
                                                 <button onClick={() => {

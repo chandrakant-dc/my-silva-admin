@@ -1,3 +1,4 @@
+import useCategory from "@/dashboard/hooks/useCategory";
 import useManageContent from "@/dashboard/hooks/useManageContent";
 import { ManageContext } from "./ManageContext";
 
@@ -12,8 +13,13 @@ export default function ManageContentProvider({ children }: { children: React.Re
         onOpenChangeAddQue,
         onCloseAddQue,
         QueFormik,
-        handleFilterSubmit
+        handleFilterSubmit,
+        subcategoryList,
+        topicList,
+        handleDeleteTopic
     } = useManageContent();
+
+    const { categoryList } = useCategory();
     return (
         <>
             <ManageContext.Provider value={{
@@ -26,7 +32,11 @@ export default function ManageContentProvider({ children }: { children: React.Re
                 onOpenChangeAddQue,
                 onCloseAddQue,
                 QueFormik,
-                handleFilterSubmit
+                handleFilterSubmit,
+                subcategoryList,
+                categoryList,
+                topicList,
+                handleDeleteTopic
             }}>
                 {children}
             </ManageContext.Provider>

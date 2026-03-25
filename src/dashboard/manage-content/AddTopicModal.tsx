@@ -1,23 +1,23 @@
 import type { AddCategoryModalProp } from "@/types/category.type";
 import MyEditor from "@/ui/MyEditor";
 import {
-    Modal,
-    ModalContent,
-    ModalHeader,
-    ModalBody,
-    ModalFooter,
     Button,
     Input,
+    Modal,
+    ModalBody,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
     Select,
     SelectItem,
 } from "@heroui/react";
-import TestTable from "./TestTable";
 import { useContext, useState } from "react";
 import { ManageContext } from "./context/ManageContext";
+import TestTable from "./TestTable";
 
 export default function AddTopicModal({ isOpen, onOpenChange }: AddCategoryModalProp) {
     const [activeTab, setActiveTab] = useState("theory");
-    const { onOpenAddQue, formik } = useContext(ManageContext)
+    const { onOpenAddQue, formik, categoryList, subcategoryList } = useContext(ManageContext)
     return (
         <>
             <Modal
@@ -29,6 +29,9 @@ export default function AddTopicModal({ isOpen, onOpenChange }: AddCategoryModal
                     base: "!my-auto"
                 }}
                 size="5xl"
+                onClose={() => {
+                    formik.resetForm()
+                }}
             >
                 <ModalContent>
                     {(onClose) => (
@@ -38,8 +41,8 @@ export default function AddTopicModal({ isOpen, onOpenChange }: AddCategoryModal
                                 <div className="flex gap-x-2">
                                     <Select
                                         classNames={{
-                                            base: "input-field-base",
-                                            trigger: "input-field-wrapper data-[invalid=true]:!bg-white group-data-[focus=true]:!bg-white !bg-white data-[hover=true]:!bg-white",
+                                            base: "input-field-base ",
+                                            trigger: " input-field-wrapper data-[invalid=true]:!bg-white group-data-[focus=true]:!bg-white !bg-white data-[hover=true]:!bg-white",
                                         }}
                                         placeholder="Select an category"
                                         aria-label="Select an category"
@@ -49,8 +52,8 @@ export default function AddTopicModal({ isOpen, onOpenChange }: AddCategoryModal
                                         errorMessage={formik.touched.category && formik.errors.category}
                                         selectedKeys={[formik.values.category]}
                                     >
-                                        {[{ key: "1", label: "1" }].map((item) => (
-                                            <SelectItem key={item.key}>{item.label}</SelectItem>
+                                        {categoryList.map((item) => (
+                                            <SelectItem key={item._id}>{item.name}</SelectItem>
                                         ))}
                                     </Select>
                                     <Select
@@ -66,8 +69,8 @@ export default function AddTopicModal({ isOpen, onOpenChange }: AddCategoryModal
                                         errorMessage={formik.touched.subCategory && formik.errors.subCategory}
                                         selectedKeys={[formik.values.subCategory]}
                                     >
-                                        {[{ key: "1", label: "1" }].map((item) => (
-                                            <SelectItem key={item.key}>{item.label}</SelectItem>
+                                        {subcategoryList.map((item) => (
+                                            <SelectItem key={item._id}>{item.name}</SelectItem>
                                         ))}
                                     </Select>
                                 </div>
@@ -113,11 +116,13 @@ export default function AddTopicModal({ isOpen, onOpenChange }: AddCategoryModal
                                 </div>
                             </ModalBody>
                             <ModalFooter>
-                                <Button className="primary-btn" color="primary" onPress={() => {
-                                    formik.submitForm()
-                                    onClose()
+                                <Button className="primary-btn" color="primary" onPress={async () => {
+                                    await formik.submitForm();
+                                    onClose();
                                 }}>
-                                    Create
+                                    {
+                                        formik.values?.id ? "Update" : "create"
+                                    }
                                 </Button>
                             </ModalFooter>
                         </>

@@ -1,17 +1,18 @@
+import AvailSeatIcon from "@/svg/AvailSeatIcon";
+import CloseCircleOutlineIcon from "@/svg/CloseCircleOutlineIcon";
 import DeleteIcon from "@/svg/DeleteIcon";
 import EditRowIcon from "@/svg/EditRowIcon";
 import DeleteModal from "@/ui/DeleteModal";
-import AddTopicModal from "./AddTopicModal";
 import { Select, SelectItem, useDisclosure } from "@heroui/react";
-import AvailSeatIcon from "@/svg/AvailSeatIcon";
-import "./manage-content.css";
 import { useContext } from "react";
+import AddTopicModal from "./AddTopicModal";
 import { ManageContext } from "./context/ManageContext";
+import "./manage-content.css";
 
 export default function ManageContent() {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
-    const { isOpen: isOpenD, onOpen: onOpenD, onOpenChange: onOpenChangeD } = useDisclosure();
-    const { formik, handleFilterSubmit } = useContext(ManageContext);
+    const { isOpen: isOpenD, onOpen: onOpenD, onOpenChange: onOpenChangeD, onClose } = useDisclosure();
+    const { formik, handleFilterSubmit, topicList, handleDeleteTopic } = useContext(ManageContext);
     return (
         <>
             <div className="p-4">
@@ -82,54 +83,47 @@ export default function ManageContent() {
                         </thead>
 
                         <tbody>
-                            <tr className="border-t">
-                                <td className="px-4 py-2">1</td>
-                                <td className="px-4 py-2">demo</td>
-                                <td className="px-4 py-2"><AvailSeatIcon /></td>
-                                <td className="px-4 py-2"><AvailSeatIcon /></td>
-                                <td className="px-4 py-2">
-                                    <div className="flex items-center justify-end gap-x-4">
-                                        <button onClick={onOpen}><EditRowIcon /></button>
-                                        <button onClick={() => onOpenD()}><DeleteIcon /></button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr className="border-t">
-                                <td className="px-4 py-2">1</td>
-                                <td className="px-4 py-2">demo</td>
-                                <td className="px-4 py-2"><AvailSeatIcon /></td>
-                                <td className="px-4 py-2"><AvailSeatIcon /></td>
-                                <td className="px-4 py-2">
-                                    <div className="flex items-center justify-end gap-x-4">
-                                        <button onClick={onOpen}><EditRowIcon /></button>
-                                        <button onClick={() => onOpenD()}><DeleteIcon /></button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr className="border-t">
-                                <td className="px-4 py-2">1</td>
-                                <td className="px-4 py-2">demo</td>
-                                <td className="px-4 py-2"><AvailSeatIcon /></td>
-                                <td className="px-4 py-2"><AvailSeatIcon /></td>
-                                <td className="px-4 py-2">
-                                    <div className="flex items-center justify-end gap-x-4">
-                                        <button onClick={onOpen}><EditRowIcon /></button>
-                                        <button onClick={() => onOpenD()}><DeleteIcon /></button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr className="border-y">
-                                <td className="px-4 py-2">1</td>
-                                <td className="px-4 py-2">demo</td>
-                                <td className="px-4 py-2"><AvailSeatIcon /></td>
-                                <td className="px-4 py-2"><AvailSeatIcon /></td>
-                                <td className="px-4 py-2">
-                                    <div className="flex items-center justify-end gap-x-4">
-                                        <button onClick={onOpen}><EditRowIcon /></button>
-                                        <button onClick={() => onOpenD()}><DeleteIcon /></button>
-                                    </div>
-                                </td>
-                            </tr>
+                            {
+                                topicList.map((item, i) => (
+                                    <tr className="border-t" key={`topic-${i + 1}`}>
+                                        <td className="px-4 py-2">{i + 1}</td>
+                                        <td className="px-4 py-2">{item?.topicName}</td>
+                                        <td className="px-4 py-2">
+                                            {
+                                                item?.description ?
+                                                    <AvailSeatIcon />
+                                                    :
+                                                    <CloseCircleOutlineIcon />
+                                            }
+                                        </td>
+                                        <td className="px-4 py-2">
+                                            {
+                                                item?.questions.length > 0 ?
+                                                    <AvailSeatIcon />
+                                                    :
+                                                    <CloseCircleOutlineIcon />
+                                            }
+                                        </td>
+                                        <td className="px-4 py-2">
+                                            <div className="flex items-center justify-end gap-x-4">
+                                                <button onClick={() => {
+                                                    formik.setFieldValue("id", item?._id);
+                                                    formik.setFieldValue("category", item?.category?._id);
+                                                    formik.setFieldValue("subCategory", item?.subcategory?._id);
+                                                    formik.setFieldValue("topicName", item?.topicName);
+                                                    formik.setFieldValue("theory", item?.description);
+                                                    formik.setFieldValue("topicQuestions", item?.questions);
+                                                    onOpen();
+                                                }}><EditRowIcon /></button>
+                                                <button onClick={() => {
+                                                    formik.setFieldValue("id", item?._id);
+                                                    onOpenD()
+                                                }}><DeleteIcon /></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))
+                            }
                         </tbody>
                     </table>
                 </div>
@@ -143,7 +137,13 @@ export default function ManageContent() {
             <DeleteModal
                 isOpen={isOpenD}
                 onOpenChange={onOpenChangeD}
-                handleDelete={() => ""}
+                handleDelete={async () => {
+                    handleDeleteTopic();
+                    onClose();
+                }}
+                onClose={() => {
+                    formik.resetForm();
+                }}
             />
         </>
     )

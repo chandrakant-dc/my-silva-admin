@@ -1,7 +1,9 @@
 import { questionAnswerSchema } from "@/schema/manage.schema";
-import type { AddQuestionIniValI, TopicInitVal } from "@/types/manage-content.type"
-import { useDisclosure } from "@heroui/react";
-import { useFormik } from "formik"
+import { getAllSubCategory } from "@/services/category.service";
+import { createTopic, deleteTopic, getAllTopic, updateTopic, type CreateTopicPayload } from "@/services/manage-content.service";
+import type { AddQuestionIniValI, TopicInitVal } from "@/types/manage-content.type";
+import { addToast, useDisclosure } from "@heroui/react";
+import { useFormik } from "formik";
 import { useEffect, useState } from "react";
 
 const initialValues: TopicInitVal = {
@@ -25,6 +27,8 @@ const initialValuesQue: AddQuestionIniValI = {
 export default function useManageContent() {
     const [currQueIdx, setCurrQueIdx] = useState<number | null>(null);
     const { isOpen: isOpenAddQue, onOpen: onOpenAddQue, onOpenChange: onOpenChangeAddQue, onClose: onCloseAddQue } = useDisclosure();
+    const [subcategoryList, setSubCategoryList] = useState<SubCategoryListI[]>([]);
+    const [topicList, setTopicList] = useState<TopicListI[]>([]);
 
     const handleSetCurrQueIndex = (idx?: number) => {
         if (idx !== undefined) {
@@ -36,7 +40,30 @@ export default function useManageContent() {
 
     const formik = useFormik({
         initialValues,
-        onSubmit: () => { }
+        onSubmit: async (val: TopicInitVal) => {
+            const payload: CreateTopicPayload = {
+                categoryId: val?.category,
+                subcategoryId: val?.subCategory,
+                topicName: val?.topicName,
+                description: val?.theory,
+                questions: val?.topicQuestions
+            };
+            if (val?.id) {
+                const resp = await updateTopic(val?.id, payload);
+                addToast({
+                    title: resp?.data.message || "topic updated",
+                    color: "success"
+                });
+            } else {
+                const resp = await createTopic(payload);
+                addToast({
+                    title: resp?.data.message || "topic created",
+                    color: "success"
+                });
+            }
+            formik.resetForm();
+            handleGetAllTopic();
+        }
     });
 
     const QueFormik = useFormik({
@@ -79,7 +106,42 @@ export default function useManageContent() {
         QueFormik.resetForm();
     }
 
-    const handleFilterSubmit = () => { }
+    const handleFilterSubmit = () => { };
+
+
+    useEffect(() => {
+        const fetchSubCategory = async (categoryId: string) => {
+            const resp = await getAllSubCategory(categoryId);
+            setSubCategoryList(resp?.data?.data || []);
+        };
+        if (formik.values.category) {
+            fetchSubCategory(formik.values.category);
+        }
+    }, [formik.values.category])
+
+    useEffect(() => {
+        const fetchAllTopic = async () => {
+            const resp = await getAllTopic();
+            setTopicList(resp?.data?.data || []);
+        }
+        fetchAllTopic();
+    }, [])
+
+    async function handleGetAllTopic() {
+        const resp = await getAllTopic();
+        setTopicList(resp?.data?.data || []);
+    }
+
+    async function handleDeleteTopic() {
+        if (formik.values?.id) {
+            const resp = await deleteTopic(formik.values?.id);
+            addToast({
+                title: resp?.data.message || "topic deleted",
+                color: "success"
+            });
+            handleGetAllTopic();
+        }
+    }
 
     return {
         formik,
@@ -91,6 +153,42 @@ export default function useManageContent() {
         onOpenChangeAddQue,
         onCloseAddQue,
         QueFormik,
-        handleFilterSubmit
+        handleFilterSubmit,
+        subcategoryList,
+        topicList,
+        handleDeleteTopic
     }
+}
+
+
+export interface SubCategoryListI {
+    _id: string;
+    name: string;
+    category: string;
+}
+
+interface TopicQuestionsI {
+    _id: string;
+    topic: string;
+    question: string;
+    option1: string;
+    option2: string;
+    option3: string;
+    option4: string;
+    answer: string;
+}
+
+export interface TopicListI {
+    _id: string;
+    category: {
+        _id: string;
+        name: string;
+    };
+    subcategory: {
+        _id: string;
+        name: string;
+    };
+    topicName: string;
+    description: string;
+    questions: TopicQuestionsI[]
 }

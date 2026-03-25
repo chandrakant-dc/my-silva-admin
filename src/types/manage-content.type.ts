@@ -8,6 +8,7 @@ export type topicQuestionsDetails = {
 }
 
 export interface TopicInitVal {
+    id?: string;
     category: string;
     subCategory: string;
     topicName: string;
