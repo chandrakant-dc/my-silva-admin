@@ -13,10 +13,11 @@ export default function ManageContentProvider({ children }: { children: React.Re
         onOpenChangeAddQue,
         onCloseAddQue,
         QueFormik,
-        handleFilterSubmit,
         subcategoryList,
         topicList,
-        handleDeleteTopic
+        handleDeleteTopic,
+        formikTopicFilter,
+        subcategoryFilterList
     } = useManageContent();
 
     const { categoryList } = useCategory();
@@ -32,11 +33,12 @@ export default function ManageContentProvider({ children }: { children: React.Re
                 onOpenChangeAddQue,
                 onCloseAddQue,
                 QueFormik,
-                handleFilterSubmit,
                 subcategoryList,
                 categoryList,
                 topicList,
-                handleDeleteTopic
+                handleDeleteTopic,
+                formikTopicFilter,
+                subcategoryFilterList
             }}>
                 {children}
             </ManageContext.Provider>

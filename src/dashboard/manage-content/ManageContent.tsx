@@ -12,7 +12,7 @@ import "./manage-content.css";
 export default function ManageContent() {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const { isOpen: isOpenD, onOpen: onOpenD, onOpenChange: onOpenChangeD, onClose } = useDisclosure();
-    const { formik, handleFilterSubmit, topicList, handleDeleteTopic } = useContext(ManageContext);
+    const { formik, topicList, handleDeleteTopic, formikTopicFilter, categoryList, subcategoryFilterList } = useContext(ManageContext);
     return (
         <>
             <div className="p-4">
@@ -29,13 +29,13 @@ export default function ManageContent() {
                         placeholder="Select an category"
                         aria-label="Select an category"
                         id="category"
-                        {...formik.getFieldProps("category")}
-                        isInvalid={!!formik.errors.category && formik.touched.category}
-                        errorMessage={formik.touched.category && formik.errors.category}
-                        selectedKeys={[formik.values.category]}
+                        {...formikTopicFilter.getFieldProps("category")}
+                        isInvalid={!!formikTopicFilter.errors.category && formikTopicFilter.touched.category}
+                        errorMessage={formikTopicFilter.touched.category && formikTopicFilter.errors.category}
+                        selectedKeys={[formikTopicFilter.values.category]}
                     >
-                        {[{ key: "1", label: "1" }].map((item) => (
-                            <SelectItem key={item.key}>{item.label}</SelectItem>
+                        {categoryList.map((item) => (
+                            <SelectItem key={item._id}>{item.name}</SelectItem>
                         ))}
                     </Select>
                     <Select
@@ -45,17 +45,17 @@ export default function ManageContent() {
                         }}
                         placeholder="Select an sub category"
                         aria-label="Select an sub category"
-                        id="subCategory"
-                        {...formik.getFieldProps("subCategory")}
-                        isInvalid={!!formik.errors.subCategory && formik.touched.subCategory}
-                        errorMessage={formik.touched.subCategory && formik.errors.subCategory}
-                        selectedKeys={[formik.values.subCategory]}
+                        id="subcategory"
+                        {...formikTopicFilter.getFieldProps("subcategory")}
+                        isInvalid={!!formikTopicFilter.errors.subcategory && formikTopicFilter.touched.subcategory}
+                        errorMessage={formikTopicFilter.touched.subcategory && formikTopicFilter.errors.subcategory}
+                        selectedKeys={[formikTopicFilter.values.subcategory]}
                     >
-                        {[{ key: "1", label: "1" }].map((item) => (
-                            <SelectItem key={item.key}>{item.label}</SelectItem>
+                        {subcategoryFilterList.map((item) => (
+                            <SelectItem key={item._id}>{item.name}</SelectItem>
                         ))}
                     </Select>
-                    <button onClick={handleFilterSubmit} className="primary-btn max-w-28 h-10 text-sm">Submit</button>
+                    <button onClick={formikTopicFilter.submitForm} className="primary-btn max-w-28 h-10 text-sm">Submit</button>
                 </div>
                 <div className="flex items-center justify-end h-9">
                     <button onClick={onOpen} className="primary-btn max-w-28 h-full text-sm">Add New</button>

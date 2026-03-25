@@ -1,5 +1,5 @@
 import type { CategoryListI } from "@/dashboard/hooks/useCategory";
-import type { SubCategoryListI, TopicListI } from "@/dashboard/hooks/useManageContent";
+import type { SubCategoryListI, TopicFilterI, TopicListI } from "@/dashboard/hooks/useManageContent";
 import type { AddQuestionIniValI, TopicInitVal } from "@/types/manage-content.type";
 import type { FormikProps } from "formik";
 import { createContext } from "react";
@@ -14,11 +14,12 @@ export interface ManageContextI {
     onOpenChangeAddQue: () => void,
     onCloseAddQue: () => void,
     QueFormik: FormikProps<AddQuestionIniValI>,
-    handleFilterSubmit: () => void,
     subcategoryList: SubCategoryListI[],
     categoryList: CategoryListI[],
     topicList: TopicListI[],
-    handleDeleteTopic: () => Promise<void>
+    handleDeleteTopic: () => Promise<void>,
+    formikTopicFilter: FormikProps<TopicFilterI>,
+    subcategoryFilterList: SubCategoryListI[]
 }
 
 const initVal: ManageContextI = {
@@ -31,11 +32,12 @@ const initVal: ManageContextI = {
     onOpenAddQue: () => { },
     onOpenChangeAddQue: () => { },
     onCloseAddQue: () => { },
-    handleFilterSubmit: () => { },
     subcategoryList: [],
     categoryList: [],
     topicList: [],
-    handleDeleteTopic: async () => { }
+    handleDeleteTopic: async () => { },
+    formikTopicFilter: {} as FormikProps<TopicFilterI>,
+    subcategoryFilterList: []
 }
 
 export const ManageContext = createContext<ManageContextI>(initVal);

@@ -23,11 +23,17 @@ const initialValuesQue: AddQuestionIniValI = {
     answer: ""
 }
 
+const initialValuesFilter: TopicFilterI = {
+    category: "",
+    subcategory: ""
+}
+
 
 export default function useManageContent() {
     const [currQueIdx, setCurrQueIdx] = useState<number | null>(null);
     const { isOpen: isOpenAddQue, onOpen: onOpenAddQue, onOpenChange: onOpenChangeAddQue, onClose: onCloseAddQue } = useDisclosure();
     const [subcategoryList, setSubCategoryList] = useState<SubCategoryListI[]>([]);
+    const [subcategoryFilterList, setSubCategoryFilterList] = useState<SubCategoryListI[]>([]);
     const [topicList, setTopicList] = useState<TopicListI[]>([]);
 
     const handleSetCurrQueIndex = (idx?: number) => {
@@ -72,6 +78,17 @@ export default function useManageContent() {
         onSubmit: handleAddQuestion
     })
 
+    const formikTopicFilter = useFormik({
+        initialValues: initialValuesFilter,
+        onSubmit: handleFilterSubmit
+    })
+
+    async function handleFilterSubmit(val: TopicFilterI) {
+        const resp = await getAllTopic(val?.category, val?.subcategory);
+        setTopicList(resp?.data?.data || []);
+    };
+
+
     function handleAddQuestion(val: AddQuestionIniValI) {
         if (currQueIdx !== null) {
             const arr = formik.values.topicQuestions;
@@ -106,8 +123,15 @@ export default function useManageContent() {
         QueFormik.resetForm();
     }
 
-    const handleFilterSubmit = () => { };
-
+    useEffect(() => {
+        const fetchSubCategory = async (categoryId: string) => {
+            const resp = await getAllSubCategory(categoryId);
+            setSubCategoryFilterList(resp?.data?.data || []);
+        };
+        if (formikTopicFilter.values.category) {
+            fetchSubCategory(formikTopicFilter.values.category);
+        }
+    }, [formikTopicFilter.values.category])
 
     useEffect(() => {
         const fetchSubCategory = async (categoryId: string) => {
@@ -156,10 +180,17 @@ export default function useManageContent() {
         handleFilterSubmit,
         subcategoryList,
         topicList,
-        handleDeleteTopic
+        handleDeleteTopic,
+        formikTopicFilter,
+        subcategoryFilterList
     }
 }
 
+
+export interface TopicFilterI {
+    category: string;
+    subcategory: string;
+}
 
 export interface SubCategoryListI {
     _id: string;
