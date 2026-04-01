@@ -1,7 +1,7 @@
 import { questionAnswerSchema } from "@/schema/manage.schema";
 import { getAllSubCategory } from "@/services/category.service";
 import { createTopic, deleteTopic, getAllTopic, updateTopic, type CreateTopicPayload } from "@/services/manage-content.service";
-import type { AddQuestionIniValI, TopicInitVal } from "@/types/manage-content.type";
+import type { AddQuestionIniValI, TopicInitVal, topicQuestionsDetails } from "@/types/manage-content.type";
 import { addToast, useDisclosure } from "@heroui/react";
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
@@ -167,6 +167,11 @@ export default function useManageContent() {
         }
     }
 
+    function handleBulkUploadedData(data: topicQuestionsDetails[]) {
+        const newData = formik.values.topicQuestions ? [...formik.values.topicQuestions, ...data] : data;
+        formik.setFieldValue("topicQuestions", newData);
+    }
+
     return {
         formik,
         currQueIdx,
@@ -182,7 +187,8 @@ export default function useManageContent() {
         topicList,
         handleDeleteTopic,
         formikTopicFilter,
-        subcategoryFilterList
+        subcategoryFilterList,
+        handleBulkUploadedData
     }
 }
 

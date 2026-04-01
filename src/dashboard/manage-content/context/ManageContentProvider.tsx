@@ -17,7 +17,8 @@ export default function ManageContentProvider({ children }: { children: React.Re
         topicList,
         handleDeleteTopic,
         formikTopicFilter,
-        subcategoryFilterList
+        subcategoryFilterList,
+        handleBulkUploadedData
     } = useManageContent();
 
     const { categoryList } = useCategory();
@@ -38,7 +39,8 @@ export default function ManageContentProvider({ children }: { children: React.Re
                 topicList,
                 handleDeleteTopic,
                 formikTopicFilter,
-                subcategoryFilterList
+                subcategoryFilterList,
+                handleBulkUploadedData
             }}>
                 {children}
             </ManageContext.Provider>

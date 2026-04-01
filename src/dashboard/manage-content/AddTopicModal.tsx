@@ -1,4 +1,5 @@
 import type { AddCategoryModalProp } from "@/types/category.type";
+import ExcelUpload from "@/ui/bulk/ExcelUpload";
 import MyEditor from "@/ui/MyEditor";
 import {
     Button,
@@ -17,7 +18,7 @@ import TestTable from "./TestTable";
 
 export default function AddTopicModal({ isOpen, onOpenChange }: AddCategoryModalProp) {
     const [activeTab, setActiveTab] = useState("theory");
-    const { onOpenAddQue, formik, categoryList, subcategoryList } = useContext(ManageContext)
+    const { onOpenAddQue, formik, categoryList, subcategoryList, handleBulkUploadedData } = useContext(ManageContext)
     return (
         <>
             <Modal
@@ -108,7 +109,11 @@ export default function AddTopicModal({ isOpen, onOpenChange }: AddCategoryModal
                                             <div className="field">
                                                 <div className="flex justify-between mb-2">
                                                     <div className="field-label">Test</div>
-                                                    <button onClick={onOpenAddQue} className="primary-btn h-8 max-w-28 text-sm">Add Question</button>
+                                                    <div className="flex items-center gap-x-2">
+                                                        <ExcelUpload handleBulkUploadedData={handleBulkUploadedData} />
+                                                        {/* <button onClick={onOpenAddQue} className="primary-btn h-8 max-w-28 text-sm">Bulk Upload</button> */}
+                                                        <button onClick={onOpenAddQue} className="primary-btn h-8 max-w-28 text-sm">Add Question</button>
+                                                    </div>
                                                 </div>
                                                 <TestTable />
                                             </div>

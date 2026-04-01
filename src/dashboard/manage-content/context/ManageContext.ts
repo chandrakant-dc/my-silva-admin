@@ -1,6 +1,6 @@
 import type { CategoryListI } from "@/dashboard/hooks/useCategory";
 import type { SubCategoryListI, TopicFilterI, TopicListI } from "@/dashboard/hooks/useManageContent";
-import type { AddQuestionIniValI, TopicInitVal } from "@/types/manage-content.type";
+import type { AddQuestionIniValI, TopicInitVal, topicQuestionsDetails } from "@/types/manage-content.type";
 import type { FormikProps } from "formik";
 import { createContext } from "react";
 
@@ -19,7 +19,8 @@ export interface ManageContextI {
     topicList: TopicListI[],
     handleDeleteTopic: () => Promise<void>,
     formikTopicFilter: FormikProps<TopicFilterI>,
-    subcategoryFilterList: SubCategoryListI[]
+    subcategoryFilterList: SubCategoryListI[];
+    handleBulkUploadedData(data: topicQuestionsDetails[]): void
 }
 
 const initVal: ManageContextI = {
@@ -37,7 +38,8 @@ const initVal: ManageContextI = {
     topicList: [],
     handleDeleteTopic: async () => { },
     formikTopicFilter: {} as FormikProps<TopicFilterI>,
-    subcategoryFilterList: []
+    subcategoryFilterList: [],
+    handleBulkUploadedData: () => { }
 }
 
 export const ManageContext = createContext<ManageContextI>(initVal);
