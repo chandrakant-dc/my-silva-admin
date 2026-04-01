@@ -19,6 +19,8 @@ const axiosInstance = axios.create({
     baseURL: `${import.meta.env.VITE_BASE_URL}/api/v1`,
     headers: {
         "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "ngrok-skip-browser-warning": "true",
     },
     withCredentials: true,
 });
