@@ -39,6 +39,6 @@ export const deleteSubCategory = (subcategoryId: string) => {
 }
 
 export const getAllSubCategory = (categoryId?: string) => {
-    const endpoint = categoryId ? `/subcategory/${categoryId}` : `/subcategory`;
+    const endpoint = categoryId ? `/subcategory/all?categoryId=${categoryId}` : `/subcategory/all`;
     return axiosInstance.get(endpoint);
 }
