@@ -16,4 +16,9 @@ export default [
         link: "/manage-content",
         Icon: AvailSeatIcon
     },
+    {
+        name: "Payment",
+        link: "/payment",
+        Icon: AvailSeatIcon
+    },
 ]

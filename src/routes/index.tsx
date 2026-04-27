@@ -1,6 +1,7 @@
 import CategoryIndex from "@/dashboard/category/CategoryIndex";
 import Layout from "@/dashboard/Layout";
 import ManageContentIndex from "@/dashboard/manage-content/ManageContentIndex";
+import PaymentRequestIndex from "@/dashboard/payment-request/PaymentRequestIndex";
 import SubCategoryIndex from "@/dashboard/sub-category/SubCategoryIndex";
 import Login from "@/onboarding/login/Login";
 import OTP from "@/onboarding/otp/OTP";
@@ -24,6 +25,7 @@ export default function Index() {
                         <Route path="/category" element={<CategoryIndex />} />
                         <Route path="/sub-category" element={<SubCategoryIndex />} />
                         <Route path="/manage-content" element={<ManageContentIndex />} />
+                        <Route path="/payment" element={<PaymentRequestIndex />} />
                     </Route>
                 </Route>
             </Routes>
